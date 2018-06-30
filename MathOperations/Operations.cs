@@ -9,7 +9,7 @@ namespace MathOperations
     public static class Operations
     {
         /// <summary>
-        /// Accracy of calculating
+        /// Initial approximation
         /// </summary>
         private const double X0 = 0.1;
 
