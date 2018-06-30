@@ -8,11 +8,27 @@ namespace MathOperations
 {
     public static class Operations
     {
+        #region API
         /// <summary>
         /// Initial approximation
         /// </summary>
         private const double X0 = 0.1;
 
+        /// <summary>
+        /// Finds root of n-th power of the number with the accuracy
+        /// </summary>
+        /// <param name="number">
+        /// The number
+        /// </param>
+        /// <param name="n">
+        /// The power
+        /// </param>
+        /// <param name="accuracy">
+        /// The accuracy
+        /// </param>
+        /// <returns>
+        /// The root
+        /// </returns>
         public static double FindNthRoot(double number, int n, double accuracy)
         {
             if (!IsValid(number, n, accuracy))
@@ -24,6 +40,22 @@ namespace MathOperations
             return Round(root, accuracy);
         }
 
+       #endregion
+
+        #region private
+
+        /// <summary>
+        /// Rounds double variable with the accuracy
+        /// </summary>
+        /// <param name="root">
+        /// variable
+        /// </param>
+        /// <param name="accuracy">
+        /// accuracy
+        /// </param>
+        /// <returns>
+        /// Rounded variable
+        /// </returns>
         private static double Round(double root, double accuracy)
         {
             int count = -1;
@@ -37,6 +69,21 @@ namespace MathOperations
             return Math.Round(root, count);
         }
 
+        /// <summary>
+        /// Does the Newton Calculation of the root
+        /// </summary>
+        /// <param name="number">
+        /// The number
+        /// </param>
+        /// <param name="n">
+        /// The power
+        /// </param>
+        /// <param name="accuracy">
+        /// The accuracy
+        /// </param>
+        /// <returns>
+        /// The root
+        /// </returns>
         private static double NewtonCalc(double number, int n, double accuracy)
         {
             double xk = X0, xkp1 = X0;
@@ -56,6 +103,21 @@ namespace MathOperations
             return xkp1;
         }
 
+        /// <summary>
+        /// Checks parametrs to be valid
+        /// </summary>
+        /// <param name="number">
+        /// The number
+        /// </param>
+        /// <param name="n">
+        /// The power
+        /// </param>
+        /// <param name="accuracy">
+        /// The accuracy
+        /// </param>
+        /// <returns>
+        /// Validation
+        /// </returns>
         private static bool IsValid(double number, int n, double accuracy)
         {
             if (n % 2 == 0)
@@ -94,5 +156,6 @@ namespace MathOperations
                 return false;
             }
         }
+        #endregion
     }
 }
