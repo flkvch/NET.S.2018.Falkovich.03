@@ -1,52 +1,48 @@
 ﻿using System;
 using NUnit.Framework;
+using MathOperations;
+using System.Diagnostics;
 
 namespace MathOperations.Tests
 {
     [TestFixture]
-    public class OperationsTests
+    class OperationsTests
     {
         [TestCase(1, 5, 0.0001, ExpectedResult = 1)]
-        public static double FindNthRoot_RootFromOne(double number, int n, double accuracy)
-        => Operations.FindNthRoot(1, 5, 0.0001);
-
         [TestCase(8, 3, 0.0001, ExpectedResult = 2)]
-        public static double FindNthRoot_IntegerAnswer(double number, int n, double accuracy)
-            => Operations.FindNthRoot(8, 3, 0.0001);
-
         [TestCase(0.001, 3, 0.0001, ExpectedResult = 0.1)]
-        public static double FindNthRoot_1(double number, int n, double accuracy)
-            => Operations.FindNthRoot(0.001, 3, 0.0001);
-
         [TestCase(0.04100625, 4, 0.0001, ExpectedResult = 0.45)]
-        public static double FindNthRoot_2(double number, int n, double accuracy)
-            => Operations.FindNthRoot(0.04100625, 4, 0.0001);
-
         [TestCase(0.0279936, 7, 0.0001, ExpectedResult = 0.6)]
-        public static double FindNthRoot_BigPower(double number, int n, double accuracy)
-            => Operations.FindNthRoot(0.0279936, 7, 0.0001);
-
         [TestCase(0.0081, 4, 0.1, ExpectedResult = 0.3)]
-        public static double FindNthRoot_3(double number, int n, double accuracy)
-            => Operations.FindNthRoot(0.0081, 4, 0.1);
-
         [TestCase(-0.008, 3, 0.1, ExpectedResult = -0.2)]
-        public static double FindNthRoot_FromNegative(double number, int n, double accuracy)
-            => Operations.FindNthRoot(-0.008, 3, 0.1);
-
         [TestCase(0.004241979, 9, 0.00000001, ExpectedResult = 0.545)]
-        public static double FindNthRoot_BigAccuracy(double number, int n, double accuracy)
-            => Operations.FindNthRoot(0.004241979, 9, 0.00000001);
+        public static double FindNthRoot_ValidCases(double number, int n, double accuracy)
+        => Operations.FindNthRoot(number, n, accuracy);
 
-        [Test]
-        public void FindNthRoot_NegativeNumberEvenPow_Exception() =>
-            Assert.Throws<ArgumentException>(() => Operations.FindNthRoot(-0.001, 2, 0.0001));
+        [TestCase(-0.01, 2, 0.0001)]
+        [TestCase(0.001, -2, 0.0001)]
+        [TestCase(0.01, 2, -1)]
+        public void FindNthRoot_NotValidCases_Exception(double number, int n, double accuracy) =>
+            Assert.Throws<ArgumentException>(() => Operations.FindNthRoot(number, n, accuracy));
 
-        [Test]
-        public void FindNthRoot_NegativePow_Exception() =>
-    Assert.Throws<ArgumentException>(() => Operations.FindNthRoot(0.001, -2, 0.0001));
-        [Test]
-        public void FindNthRoot_UncorrectAccuracy_Exception() =>
-    Assert.Throws<ArgumentException>(() => Operations.FindNthRoot(0.001, 2, -1));
+        [TestCase(12, ExpectedResult = 21)]
+        [TestCase(513, ExpectedResult = 531)]
+        [TestCase(2017, ExpectedResult = 2071)]
+        [TestCase(414, ExpectedResult = 441)]
+        [TestCase(1234321, ExpectedResult = 1241233)]
+        [TestCase(1234126, ExpectedResult = 1234162)]
+        [TestCase(3456432, ExpectedResult = 3462345)]
+        [TestCase(10, ExpectedResult = -1)]
+        [TestCase(20, ExpectedResult = -1)]
+        [TestCase(9991, ExpectedResult = -1)]
+        [TestCase(98765211, ExpectedResult = -1)]
+        public static int FindNextBiggerNumber_ValidCases(int number)
+        => Operations.FindNextBiggerNumber(number);
+
+        [TestCase(0)]
+        [TestCase(5)]
+        [TestCase(-15)]
+        public static void FindNextBiggerNumber_NotValidCases(int number)
+        => Assert.Throws<ArgumentException>(() => Operations.FindNextBiggerNumber(number));
     }
 }
