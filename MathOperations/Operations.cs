@@ -231,16 +231,27 @@ namespace MathOperations
         /// </returns>
         private static int[] ExtractDigits(int number)
         {
-            int[] digits = new int[] { };
             if (number < 0)
             {
                 number *= -1;
             }
-            while (number > 0)
+
+            int count = 0;
+            int temp = number;
+            while (temp > 0)
             {
-                Array.Resize(ref digits, digits.Length + 1);
-                digits[digits.Length - 1] = number % 10;
-                number /= 10;
+                count++;
+                temp /= 10;
+            }
+
+            int[] digits = new int[] { };
+            Array.Resize(ref digits, count);
+
+            temp = number;
+            for (int i = 0; i < digits.Length; i++)
+            {
+                digits[i] = temp % 10;
+                temp /= 10;
             }
 
             return digits;

@@ -27,6 +27,10 @@ namespace MathOperations.Tests
         public static int FindGCD_ThreeNumbers(params int[] array)
         => GCD.FindGCD(array);
 
+        [TestCase(15)]
+        public static void FindGCD_OneNumber(params int[] array)
+        => Assert.Throws<ArgumentException>(() => GCD.FindGCD(array));
+
         [TestCase(25, 50, ExpectedResult = 25)]
         [TestCase(50, 25, ExpectedResult = 25)]
         [TestCase(25, 1, ExpectedResult = 1)]

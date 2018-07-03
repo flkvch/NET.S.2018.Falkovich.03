@@ -65,6 +65,11 @@ namespace MathOperations
         /// </returns>
         public static int FindGCD(params int[] array)
         {
+            if (array.Length == 1)
+            {
+                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+            }
+
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
             {
@@ -88,6 +93,11 @@ namespace MathOperations
         /// </returns>
         public static int FindGCD(out string time, params int[] array)
         {
+            if (array.Length == 1)
+            {
+                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+            }
+
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
@@ -168,6 +178,11 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(params int[] array)
         {
+            if (array.Length == 1)
+            {
+                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+            }
+
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
             {
@@ -191,6 +206,11 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(out string time, params int[] array)
         {
+            if (array.Length == 1)
+            {
+                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+            }
+
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
