@@ -88,15 +88,15 @@ namespace MathOperations
         /// </returns>
         public static int FindGCD(out string time, params int[] array)
         {
-            Stopwatch stw = new Stopwatch();
+            Stopwatch stw = Stopwatch.StartNew();
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
             {
                 gcd = FindGCD(gcd, array[i]);
             }
 
+            time = (stw.Elapsed).ToString();
             stw.Stop();
-            time = stw.ElapsedMilliseconds.ToString();
             return gcd;
         }
 
@@ -191,15 +191,15 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(out string time, params int[] array)
         {
-            Stopwatch stw = new Stopwatch();
+            Stopwatch stw = Stopwatch.StartNew();
             int gcd = array[0];
             for (int i = 1; i < array.Length; i++)
             {
                 gcd = FindGCDBinary(gcd, array[i]);
             }
-            
+
+            time = (stw.Elapsed).ToString();
             stw.Stop();
-            time = stw.ElapsedMilliseconds.ToString();
             return gcd;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using MathOperations;
+using System.Diagnostics;
 
 namespace MathOperations.Tests
 {
@@ -35,7 +36,8 @@ namespace MathOperations.Tests
         [TestCase(0, 50, ExpectedResult = 50)]
         [TestCase(0, 0, ExpectedResult = 0)]
         [TestCase(55, 55, ExpectedResult = 55)]
-        public static int FindGCDBinary_TwoNumbers(int a, int b) => GCD.FindGCDBinary(a, b);
+        public static int FindGCDBinary_TwoNumbers(int a, int b) 
+            => GCD.FindGCDBinary(a, b);
 
         [TestCase(25, 50, 100, ExpectedResult = 25)]
         [TestCase(120, 50, 3, ExpectedResult = 1)]
@@ -44,5 +46,29 @@ namespace MathOperations.Tests
         [TestCase(47, 7, 3, ExpectedResult = 1)]
         public static int FindGCDBinary_ThreeNumbers(params int[] array)
         => GCD.FindGCDBinary(array);
+
+        [TestCase("", 25, 50, 100, ExpectedResult = 25)]
+        [TestCase("", 120, 50, 3, ExpectedResult = 1)]
+        [TestCase("", -25, 50, -100, ExpectedResult = 25)]
+        [TestCase("", 25, 0, 50, ExpectedResult = 25)]
+        [TestCase("", 47, 7, 3, ExpectedResult = 1)]
+        public static int FindGCD_ThreeNumbersOutTime(out string time, params int[] array)
+        {
+            int a = GCD.FindGCD(out time, array);
+            Console.WriteLine(time);
+            return a;
+        }
+
+        [TestCase("", 25, 50, 100, ExpectedResult = 25)]
+        [TestCase("", 120, 50, 3, ExpectedResult = 1)]
+        [TestCase("", -25, 50, -100, ExpectedResult = 25)]
+        [TestCase("", 25, 0, 50, ExpectedResult = 25)]
+        [TestCase("", 47, 7, 3, ExpectedResult = 1)]
+        public static int FindGCDBinary_ThreeNumbersOutTime(out string time, params int[] array)
+        {
+            int a = GCD.FindGCDBinary(out time, array);
+            Console.WriteLine(time);
+            return a;
+        }
     }
 }
