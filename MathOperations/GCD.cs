@@ -8,6 +8,7 @@ namespace MathOperations
     /// </summary>
     public static class GCD
     {
+        #region Euclidian's method
         /// <summary>
         /// Finds GCD of 2 numbers <paramref name="a"/> and <paramref name="b"/> by Euclidian's algorithm 
         /// </summary>
@@ -55,7 +56,27 @@ namespace MathOperations
         }
 
         /// <summary>
-        /// Finds GCD of 3 and more numbers by Euclidian's algorithm 
+        /// Finds GCD of 3 numbers <paramref name="a"/> and <paramref name="b"/> by Euclidian's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="c">
+        /// The third number
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
+        /// </returns>
+        public static int FindGCD(int a, int b, int c)
+        {
+            return FindGCD(FindGCD(a, b), c);
+        }
+
+        /// <summary>
+        /// Finds GCD of 4 and more numbers by Euclidian's algorithm 
         /// </summary>
         /// <param name="array">
         /// Numbers 
@@ -67,7 +88,7 @@ namespace MathOperations
         {
             if (array.Length == 1)
             {
-                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+                throw new ArgumentException("CGD counts only for 2 and more numbers", nameof(array));
             }
 
             int gcd = array[0];
@@ -78,9 +99,62 @@ namespace MathOperations
 
             return gcd;
         }
+        #endregion
+
+        #region Euclidian's method + time
+        /// <summary>
+        /// Finds GCD of 2 numbers <paramref name="a"/> and <paramref name="b"/> by Euclidian's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="time">
+        /// Returns elapsed time for the algorithm 
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
+        /// </returns>
+        public static int FindGCD(int a, int b, out int time)
+        {
+            Stopwatch stw = Stopwatch.StartNew();
+            int gcd = FindGCD(a, b);
+            time = (int)stw.ElapsedTicks;
+            stw.Stop();
+            return gcd;
+        }
 
         /// <summary>
-        /// Finds GCD of 3 and more numbers by Euclidian's algorithm 
+        /// Finds GCD of 3 numbers <paramref name="a"/> and <paramref name="b"/> by Euclidian's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="c">
+        /// The third number
+        /// </param>
+        /// <param name="time">
+        /// Returns elapsed time for the algorithm 
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
+        /// </returns>
+        public static int FindGCD(int a, int b, int c, out int time)
+        {
+            Stopwatch stw = Stopwatch.StartNew();
+            int gcd = FindGCD(FindGCD(a, b), c);
+            time = (int)stw.ElapsedTicks;
+            stw.Stop();
+            return gcd;
+        }
+
+        /// <summary>
+        /// Finds GCD of 4 and more numbers by Euclidian's algorithm 
         /// </summary>
         /// <param name="time">
         /// Returns elapsed time for the algorithm 
@@ -91,11 +165,11 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor
         /// </returns>
-        public static int FindGCD(out string time, params int[] array)
+        public static int FindGCD(out int time, params int[] array)
         {
             if (array.Length == 1)
             {
-                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+                throw new ArgumentException("CGD counts only for 2 and more numbers", nameof(array));                
             }
 
             Stopwatch stw = Stopwatch.StartNew();
@@ -105,11 +179,13 @@ namespace MathOperations
                 gcd = FindGCD(gcd, array[i]);
             }
 
-            time = (stw.Elapsed).ToString();
+            time = (int)stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
+        #endregion
 
+        #region Stein's method
         /// <summary>
         /// Finds GCD of 2 numbers <paramref name="a"/> and <paramref name="b"/> by Stein's algorithm 
         /// </summary>
@@ -168,7 +244,27 @@ namespace MathOperations
         }
 
         /// <summary>
-        /// Finds GCD of 3 and more numbers by Stein's algorithm
+        /// Finds GCD of 3 numbers <paramref name="a"/> and <paramref name="b"/> by Stein's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="c">
+        /// The third number
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
+        /// </returns>
+        public static int FindGCDBinary(int a, int b, int c)
+        {
+            return FindGCDBinary(FindGCDBinary(a, b), c);
+        }
+
+        /// <summary>
+        /// Finds GCD of 4 and more numbers by Stein's algorithm
         /// </summary>
         /// <param name="array">
         /// Numbers 
@@ -191,9 +287,62 @@ namespace MathOperations
 
             return gcd;
         }
+        #endregion
+
+        #region Stein's method + time
+        /// <summary>
+        /// Finds GCD of 2 numbers <paramref name="a"/> and <paramref name="b"/> by Stein's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="time">
+        /// Returns elapsed time for the algorithm 
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
+        /// </returns>
+        public static int FindGCDBinary(int a, int b, out int time)
+        {
+            Stopwatch stw = Stopwatch.StartNew();
+            int gcd = FindGCDBinary(a, b);
+            time = (int)stw.ElapsedTicks;
+            stw.Stop();
+            return gcd;
+        }
 
         /// <summary>
-        /// Finds GCD of 3 and more numbers by Stein's algorithm 
+        /// Finds GCD of 3 numbers <paramref name="a"/> and <paramref name="b"/> by Stein's algorithm 
+        /// </summary>
+        /// <param name="a">
+        /// The first number
+        /// </param>
+        /// <param name="b">
+        /// The second number
+        /// </param>
+        /// <param name="c">
+        /// The third number
+        /// </param>
+        /// <param name="time">
+        /// Returns elapsed time for the algorithm 
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
+        /// </returns>
+        public static int FindGCDBinary(int a, int b, int c, out int time)
+        {
+            Stopwatch stw = Stopwatch.StartNew();
+            int gcd = FindGCDBinary(FindGCDBinary(a, b), c);
+            time = (int)stw.ElapsedTicks;
+            stw.Stop();
+            return gcd;
+        }
+
+        /// <summary>
+        /// Finds GCD of 4 and more numbers by Stein's algorithm 
         /// </summary>
         /// <param name="time">
         /// Out parameter, returns elapsed time for the algorithm 
@@ -204,7 +353,7 @@ namespace MathOperations
         /// <returns>
         /// GCD of 3 and more numbers
         /// </returns>
-        public static int FindGCDBinary(out string time, params int[] array)
+        public static int FindGCDBinary(out int time, params int[] array)
         {
             if (array.Length == 1)
             {
@@ -218,9 +367,10 @@ namespace MathOperations
                 gcd = FindGCDBinary(gcd, array[i]);
             }
 
-            time = (stw.Elapsed).ToString();
+            time = (int)stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
+        #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace MathOperations
                 next = 1.0 / n * ((n - 1) * current + number / Math.Pow(current, n - 1));
             }
 
-            return Round(next, accuracy);
+            return next;
         }
 
         /// <summary>
@@ -99,32 +99,6 @@ namespace MathOperations
         #endregion
 
         #region private for FindNthRoot
-
-        /// <summary>
-        /// Rounds double variable with the accuracy
-        /// </summary>
-        /// <param name="number">
-        /// variable
-        /// </param>
-        /// <param name="accuracy">
-        /// accuracy
-        /// </param>
-        /// <returns>
-        /// Rounded variable
-        /// </returns>
-        private static double Round(double number, double accuracy)
-        {
-            int count = -1;
-            while (accuracy < 10)
-            {
-                int digit = (int)accuracy;
-                count++;
-                accuracy *= 10;
-            }
-
-            return Math.Round(number, count);
-        }
-
 
         /// <summary>
         /// Checks parametres to be valid
@@ -236,18 +210,10 @@ namespace MathOperations
                 number *= -1;
             }
 
-            int count = 0;
-            int temp = number;
-            while (temp > 0)
-            {
-                count++;
-                temp /= 10;
-            }
-
             int[] digits = new int[] { };
-            Array.Resize(ref digits, count);
+            Array.Resize(ref digits, (int)Math.Log10(number) + 1);
 
-            temp = number;
+            int temp = number;
             for (int i = 0; i < digits.Length; i++)
             {
                 digits[i] = temp % 10;
