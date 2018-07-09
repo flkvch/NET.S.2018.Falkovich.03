@@ -85,27 +85,26 @@ namespace MathOperations.Tests
         => Assert.AreEqual(GCD.FindGCDBinary(GenArray(int.MaxValue / 10_000)), 1);
         #endregion
 
-        [TestCase(0, 25, 50, 100, ExpectedResult = 25)]
-        [TestCase(0, 120, 50, 3, ExpectedResult = 1)]
-        [TestCase(0, -25, 50, -100, ExpectedResult = 25)]
-        [TestCase(0, 25, 0, 50, ExpectedResult = 25)]
-        [TestCase(0, 47, 7, 3, ExpectedResult = 1)]
-        public static int FindGCD_ArrayOutTime(out int time, params int[] array)
+        [TestCase(0L, 25, 50, 100, ExpectedResult = 25)]
+        [TestCase(0L, 120, 50, 3, ExpectedResult = 1)]
+        [TestCase(0L, -25, 50, -100, ExpectedResult = 25)]
+        [TestCase(0L, 25, 0, 50, ExpectedResult = 25)]
+        [TestCase(0L, 47, 7, 3, ExpectedResult = 1)]
+        public static int FindGCD_ArrayOutTime(out long time, params int[] array)
         {
             int a = GCD.FindGCD(out time, array);
             Console.WriteLine(time);
             return a;
         }
 
-        [TestCase(0, 25, 50, 100, ExpectedResult = 25)]
-        [TestCase(0, 120, 50, 3, ExpectedResult = 1)]
-        [TestCase(0, -25, 50, -100, ExpectedResult = 25)]
-        [TestCase(0, 25, 0, 50, ExpectedResult = 25)]
-        [TestCase(0, 47, 7, 3, ExpectedResult = 1)]
-        public static int FindGCDBinary_ThreeNumbersOutTime(out int time, params int[] array)
+        [TestCase(0L, 0, 25, 50, 100, ExpectedResult = 25)]
+        [TestCase(0L, 120, 50, 3, ExpectedResult = 1)]
+        [TestCase(0L, -25, 50, -100, ExpectedResult = 25)]
+        [TestCase(0L, 25, 0, 50, ExpectedResult = 25)]
+        [TestCase(0L, 47, 7, 3, ExpectedResult = 1)]
+        public static int FindGCDBinary_ThreeNumbersOutTime(out long time, params int[] array)
         {
             int a = GCD.FindGCDBinary(out time, array);
-            Console.WriteLine(time);
             return a;
         }
 

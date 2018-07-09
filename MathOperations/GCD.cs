@@ -86,6 +86,11 @@ namespace MathOperations
         /// </returns>
         public static int FindGCD(params int[] array)
         {
+            if(array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
             if (array.Length == 1)
             {
                 throw new ArgumentException("CGD counts only for 2 and more numbers", nameof(array));
@@ -117,11 +122,11 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
         /// </returns>
-        public static int FindGCD(int a, int b, out int time)
+        public static int FindGCD(int a, int b, out long time)
         {
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = FindGCD(a, b);
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
@@ -144,11 +149,11 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
         /// </returns>
-        public static int FindGCD(int a, int b, int c, out int time)
+        public static int FindGCD(int a, int b, int c, out long time)
         {
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = FindGCD(FindGCD(a, b), c);
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
@@ -165,7 +170,7 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor
         /// </returns>
-        public static int FindGCD(out int time, params int[] array)
+        public static int FindGCD(out long time, params int[] array)
         {
             if (array.Length == 1)
             {
@@ -179,7 +184,7 @@ namespace MathOperations
                 gcd = FindGCD(gcd, array[i]);
             }
 
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
@@ -305,11 +310,11 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
         /// </returns>
-        public static int FindGCDBinary(int a, int b, out int time)
+        public static int FindGCDBinary(int a, int b, out long time)
         {
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = FindGCDBinary(a, b);
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
@@ -332,11 +337,11 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
         /// </returns>
-        public static int FindGCDBinary(int a, int b, int c, out int time)
+        public static int FindGCDBinary(int a, int b, int c, out long time)
         {
             Stopwatch stw = Stopwatch.StartNew();
             int gcd = FindGCDBinary(FindGCDBinary(a, b), c);
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }
@@ -353,8 +358,13 @@ namespace MathOperations
         /// <returns>
         /// GCD of 3 and more numbers
         /// </returns>
-        public static int FindGCDBinary(out int time, params int[] array)
+        public static int FindGCDBinary(out long time, params int[] array)
         {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
             if (array.Length == 1)
             {
                 throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
@@ -367,7 +377,7 @@ namespace MathOperations
                 gcd = FindGCDBinary(gcd, array[i]);
             }
 
-            time = (int)stw.ElapsedTicks;
+            time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
         }

@@ -87,12 +87,12 @@ namespace MathOperations
         /// <returns>
         /// The next bigger number of <paramref name="number"/>
         /// </returns>
-        public static int FindNextBiggerNumber(int number, out string time)
+        public static int FindNextBiggerNumber(int number, out long time)
         {
             Stopwatch stw = new Stopwatch();
             int a = FindNextBiggerNumber(number);
             stw.Stop();
-            time = stw.ElapsedMilliseconds.ToString();
+            time = stw.ElapsedTicks;
             return a;
         }
        
@@ -210,9 +210,7 @@ namespace MathOperations
                 number *= -1;
             }
 
-            int[] digits = new int[] { };
-            Array.Resize(ref digits, (int)Math.Log10(number) + 1);
-
+            int[] digits = new int[(int)Math.Log10(number) + 1];
             int temp = number;
             for (int i = 0; i < digits.Length; i++)
             {
