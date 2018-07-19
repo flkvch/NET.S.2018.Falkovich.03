@@ -21,7 +21,7 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
         /// </returns>
-        public static int FindGCD(int a, int b)
+        public static int FindGCDEuclidian(int a, int b)
         {
             if (a == b)
             {
@@ -70,9 +70,9 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
         /// </returns>
-        public static int FindGCD(int a, int b, int c)
+        public static int FindGCDEuclidian(int a, int b, int c)
         {
-            return FindGCD(FindGCD(a, b), c);
+            return FindGCD(FindGCDEuclidian, a, b, c);
         }
 
         /// <summary>
@@ -84,25 +84,9 @@ namespace MathOperations
         /// <returns>
         /// GCD of 3 and more numbers
         /// </returns>
-        public static int FindGCD(params int[] array)
+        public static int FindGCDEuclidian(params int[] array)
         {
-            if(array == null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            if (array.Length == 1)
-            {
-                throw new ArgumentException("CGD counts only for 2 and more numbers", nameof(array));
-            }
-
-            int gcd = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                gcd = FindGCD(gcd, array[i]);
-            }
-
-            return gcd;
+            return FindGCD(FindGCDEuclidian, array);
         }
         #endregion
 
@@ -122,13 +106,9 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>
         /// </returns>
-        public static int FindGCD(int a, int b, out long time)
+        public static int FindGCDEuclidian(int a, int b, out long time)
         {
-            Stopwatch stw = Stopwatch.StartNew();
-            int gcd = FindGCD(a, b);
-            time = stw.ElapsedTicks;
-            stw.Stop();
-            return gcd;
+            return FindGCD(FindGCDEuclidian, out time, a, b);
         }
 
         /// <summary>
@@ -149,13 +129,9 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor of <paramref name="a"/>, <paramref name="b"/>  and <paramref name="c"/>
         /// </returns>
-        public static int FindGCD(int a, int b, int c, out long time)
+        public static int FindGCDEuclidian(int a, int b, int c, out long time)
         {
-            Stopwatch stw = Stopwatch.StartNew();
-            int gcd = FindGCD(FindGCD(a, b), c);
-            time = stw.ElapsedTicks;
-            stw.Stop();
-            return gcd;
+            return FindGCD(FindGCDEuclidian, out time, a, b, c);
         }
 
         /// <summary>
@@ -170,23 +146,9 @@ namespace MathOperations
         /// <returns>
         /// The greatest common divisor
         /// </returns>
-        public static int FindGCD(out long time, params int[] array)
+        public static int FindGCDEuclidian(out long time, params int[] array)
         {
-            if (array.Length == 1)
-            {
-                throw new ArgumentException("CGD counts only for 2 and more numbers", nameof(array));                
-            }
-
-            Stopwatch stw = Stopwatch.StartNew();
-            int gcd = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                gcd = FindGCD(gcd, array[i]);
-            }
-
-            time = stw.ElapsedTicks;
-            stw.Stop();
-            return gcd;
+            return FindGCD(FindGCDEuclidian, out time, array);
         }
         #endregion
 
@@ -265,7 +227,7 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(int a, int b, int c)
         {
-            return FindGCDBinary(FindGCDBinary(a, b), c);
+            return FindGCD(FindGCDBinary, a, b, c);
         }
 
         /// <summary>
@@ -279,18 +241,7 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(params int[] array)
         {
-            if (array.Length == 1)
-            {
-                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
-            }
-
-            int gcd = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                gcd = FindGCDBinary(gcd, array[i]);
-            }
-
-            return gcd;
+            return FindGCD(FindGCDBinary, array);
         }
         #endregion
 
@@ -312,11 +263,7 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(int a, int b, out long time)
         {
-            Stopwatch stw = Stopwatch.StartNew();
-            int gcd = FindGCDBinary(a, b);
-            time = stw.ElapsedTicks;
-            stw.Stop();
-            return gcd;
+            return FindGCD(FindGCDEuclidian, out time, a, b);
         }
 
         /// <summary>
@@ -339,11 +286,7 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(int a, int b, int c, out long time)
         {
-            Stopwatch stw = Stopwatch.StartNew();
-            int gcd = FindGCDBinary(FindGCDBinary(a, b), c);
-            time = stw.ElapsedTicks;
-            stw.Stop();
-            return gcd;
+            return FindGCD(FindGCDEuclidian, out time, a, b, c);
         }
 
         /// <summary>
@@ -360,23 +303,60 @@ namespace MathOperations
         /// </returns>
         public static int FindGCDBinary(out long time, params int[] array)
         {
+            return FindGCD(FindGCDBinary, out time, array);
+        }
+        #endregion
+
+        #region Private methods
+        private static int FindGCD(Func<int, int, int> function, int a, int b, int c)
+        {
+            return function(function(a, b), c);
+        }
+
+        private static int FindGCD(Func<int, int, int> function, params int[] array)
+        {
             if (array == null)
             {
                 throw new ArgumentNullException(nameof(array));
             }
 
-            if (array.Length == 1)
+            if (array.Length == 1 || array.Length == 0)
+            {
+                throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
+            }
+
+            int result = array[0];
+            foreach (int number in array)
+            {
+                result = function(result, number);
+            }
+
+            return result;
+        }
+
+        private static int FindGCD(Func<int, int, int> function, out long time, int a, int b, int c)
+        {
+            Stopwatch stw = Stopwatch.StartNew();
+            int gcd = FindGCD(function, a, b, c);
+            time = stw.ElapsedTicks;
+            stw.Stop();
+            return gcd;
+        }
+
+        private static int FindGCD(Func<int, int, int> function, out long time, params int[] array)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            if (array.Length == 1 || array.Length == 0)
             {
                 throw new ArgumentException(nameof(array), "CGD counts only for 2 and more numbers");
             }
 
             Stopwatch stw = Stopwatch.StartNew();
-            int gcd = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                gcd = FindGCDBinary(gcd, array[i]);
-            }
-
+            int gcd = FindGCD(function, array);
             time = stw.ElapsedTicks;
             stw.Stop();
             return gcd;
